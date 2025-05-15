@@ -1,0 +1,24 @@
+{% load static %}
+<body>
+<link rel="stylesheet" type="text/css" href="{% static 'polls/main.css' %}">
+
+
+
+{% if latest_question_list %}
+    <h3>Questions:</h3>
+    <ul>
+        {% for q in latest_question_list %}
+            <a href="{% url 'polls:detail' q.id %}">
+                <li class="question_text">{{ q.question_text }} ({{ q.pub_date }}). Question number: {{ q.id }}</li>
+
+            </a>
+        {% endfor %}
+    </ul>
+    <!-- اگر می‌خواهید به دومین سوال دسترسی داشته باشید، از این روش استفاده کنید -->
+    {% if latest_question_list|length > 1 %}
+        <p>Second question's pub_date: {{ latest_question_list.1.pub_date }}</p>
+    {% endif %}
+{% else %}
+    <p>No questions available</p>
+{% endif %}
+</body>
